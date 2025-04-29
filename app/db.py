@@ -3,7 +3,7 @@ import psycopg2
 DB_CONFING = {
     "dbname": "warehouse",
     "user": "postgres",
-    "password": "Totem151012",
+    "password": "password",
     "host": "localhost",
     "port": "5432"
 }
