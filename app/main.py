@@ -22,10 +22,10 @@ def insert_goods():
     good = request.get_json()
 
     if good['name_goods'] is None or good['quantity'] is None or good['name_category'] is None or good['full_cost'] is None:
-        return jsonify({"error": "info incorrect"})
+        return jsonify({"error": "info incorrect"}), HTTPStatus.BAD_REQUEST
     elif good['name_goods'] == '' or good['quantity'] == '' or good['name_category'] == '' or good[
         'full_cost'] == '':
-        return jsonify({"error": "info incorrect"})
+        return jsonify({"error": "info incorrect"}), HTTPStatus.BAD_REQUEST
 
     db.insert_goods(good['name_goods'], good['quantity'], good['name_category'], good['full_cost'])
 
@@ -40,16 +40,16 @@ def insert_order_buy():
     if buy_info['goods'] is None or buy_info['supplier'] is None or buy_info['price'] is None or buy_info[
         'quantity'] is None or buy_info['date'] is None:
 
-        return jsonify({"error": "info incorrect"})
+        return jsonify({"error": "info incorrect"}), HTTPStatus.BAD_REQUEST
     elif buy_info['goods'] == '' or buy_info['supplier'] == '' or buy_info['price'] == '' or buy_info[
         'quantity'] == '' or buy_info['date'] == '':
 
-        return jsonify({"error": "info incorrect"})
+        return jsonify({"error": "info incorrect"}), HTTPStatus.BAD_REQUEST
 
     db.insert_order_buy(buy_info['goods'], buy_info['supplier'], buy_info['price'], buy_info[
         'quantity'], buy_info['date'])
 
-    return jsonify({"message": "buy info added in BD"})
+    return jsonify({"message": "buy info added in BD"}), HTTPStatus.CREATED
 
 
 # добавление операции реализации товара
@@ -60,16 +60,16 @@ def insert_order_sale():
     if sale_info['goods'] is None or sale_info['customer'] is None or sale_info['price'] is None or sale_info[
         'quantity'] is None or sale_info['date'] is None:
 
-        return jsonify({"error": "info incorrect"})
+        return jsonify({"error": "info incorrect"}), HTTPStatus.BAD_REQUEST
     elif sale_info['goods'] == '' or sale_info['customer'] == '' or sale_info['price'] == '' or sale_info[
         'quantity'] == '' or sale_info['date'] == '':
 
-        return jsonify({"error": "info incorrect"})
+        return jsonify({"error": "info incorrect"}), HTTPStatus.BAD_REQUEST
 
     db.insert_order_sale(sale_info['goods'], sale_info['customer'], sale_info['price'], sale_info[
         'quantity'], sale_info['date'])
 
-    return jsonify({"message": "sale info added in BD"})
+    return jsonify({"message": "sale info added in BD"}), HTTPStatus.CREATED
 
 
 # добавление банковской операции
@@ -78,9 +78,9 @@ def insert_bank_transaction():
     transaction = request.get_json()
 
     if transaction['transaction_amount'] is None or transaction['description'] is None or transaction['transaction_date'] is None:
-        return jsonify({"error": "info incorrect"})
+        return jsonify({"error": "info incorrect"}), HTTPStatus.BAD_REQUEST
     elif transaction['transaction_amount'] == '' or transaction['description'] == '' or transaction['transaction_date'] == '':
-        return jsonify({"error": "info incorrect"})
+        return jsonify({"error": "info incorrect"}), HTTPStatus.BAD_REQUEST
 
     db.insert_bank_transaction(transaction['transaction_amount'], transaction['description'], transaction['transaction_date'])
 
@@ -92,11 +92,11 @@ def insert_bank_transaction():
 def insert_categories_goods():
     categories = request.get_json()
     if "name" not in categories:
-        return jsonify({"error": "json incorrect, not key 'name"})
+        return jsonify({"error": "json incorrect, not key 'name"}), HTTPStatus.BAD_REQUEST
     if categories['name'] is None:
-        return jsonify({"error": "info incorrect"})
+        return jsonify({"error": "info incorrect"}), HTTPStatus.BAD_REQUEST
     elif categories['name'] == '':
-        return jsonify({"error": "info incorrect"})
+        return jsonify({"error": "info incorrect"}), HTTPStatus.BAD_REQUEST
 
     db.insert_categories(categories['name'])
 
@@ -108,11 +108,11 @@ def insert_categories_goods():
 def insert_suppliers():
     suppliers = request.get_json()
     if "name" not in suppliers:
-        return jsonify({"error": "json incorrect, not key 'name"})
+        return jsonify({"error": "json incorrect, not key 'name"}), HTTPStatus.BAD_REQUEST
     if suppliers['name'] is None:
-        return jsonify({"error": "info incorrect"})
+        return jsonify({"error": "info incorrect"}), HTTPStatus.BAD_REQUEST
     elif suppliers['name'] == '':
-        return jsonify({"error": "info incorrect"})
+        return jsonify({"error": "info incorrect"}), HTTPStatus.BAD_REQUEST
 
     db.insert_suppliers(suppliers['name'])
 
@@ -124,11 +124,11 @@ def insert_suppliers():
 def insert_customers():
     customers = request.get_json()
     if "name" not in customers:
-        return jsonify({"error": "json incorrect, not key 'name"})
+        return jsonify({"error": "json incorrect, not key 'name"}), HTTPStatus.BAD_REQUEST
     if customers['name'] is None:
-        return jsonify({"error": "info incorrect"})
+        return jsonify({"error": "info incorrect"}), HTTPStatus.BAD_REQUEST
     elif customers['name'] == '':
-        return jsonify({"error": "info incorrect"})
+        return jsonify({"error": "info incorrect"}), HTTPStatus.BAD_REQUEST
 
     db.insert_customer(customers['name'])
 
@@ -271,7 +271,7 @@ def get_orders_sale_by_client(client):
             })
 
         return jsonify({"orders_by_client": obc}), HTTPStatus.OK
-    return jsonify({"message": "error"})
+    return jsonify({"message": "error"}), HTTPStatus.BAD_REQUEST
 
 
 # поиск движения товара по лайк поставщика
@@ -293,7 +293,7 @@ def get_orders_buy_suppliers(suppliers):
             })
 
         return jsonify({"orders_by_suppliers": obs}), HTTPStatus.OK
-    return jsonify({"message": "error"})
+    return jsonify({"message": "error"}), HTTPStatus.BAD_REQUEST
 
 #=================#
 #Запуск приложения#
