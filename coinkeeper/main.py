@@ -79,7 +79,7 @@ def get_income():
             }
         )
 
-    return jsonify({"transactions": transactions})
+    return jsonify({"transactions": transactions}), HTTPStatus.OK
 
 
 @app.route("/get-expense", methods=["GET"])
@@ -98,7 +98,7 @@ def get_expense():
             }
         )
 
-    return jsonify({"transactions": transactions})
+    return jsonify({"transactions": transactions}), HTTPStatus.OK
 
 
 if __name__ == "__main__":
