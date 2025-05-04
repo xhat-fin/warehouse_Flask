@@ -6,7 +6,7 @@ from sqlalchemy.sql.operators import ilike_op
 DB_CONFIG = {
     "dbname": "warehouse",
     "user": "postgres",
-    "password": "Totem151012",
+    "password": "pass",
     "host": "localhost",
     "port": "5432"
 }
